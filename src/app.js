@@ -23,7 +23,10 @@ if (!fs.existsSync(logsDir)) {
 
 // 跨域：默认允许任意来源（origin: true 会回显请求 Origin，可与 credentials 同时使用）
 // 若需限制，设置环境变量 ALLOWED_ORIGINS=https://a.com,https://b.com（逗号分隔）
-const corsOrigins = process.env.ALLOWED_ORIGINS?.split(',').map((s) => s.trim()).filter(Boolean);
+const corsOrigins = String(process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
 app.use(
   cors({
     origin:
